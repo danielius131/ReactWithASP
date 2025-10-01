@@ -10,18 +10,18 @@ namespace ReactWithASP.Server.Controllers;
 
 public class StudentsController(AppDbContext context) : ControllerBase
 {
-    [HttpGet]
+    [HttpPut ("{id:int}")]
 
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> Put(int id, StudentDto dto)
     {
-        var students = await context.Students.ToListAsync();
-        List<StudentDto> results = [];
-
-        foreach (var student in students)
+        var student = await context.Students.FirstOrDefaultAsync(i => i.id == id);
+        if (student != null)
         {
-            results.Add(new StudentDto(student.Id, $"{student.FirstName} {student.LastName}", student.Email));
+            student.SetValues(dto.FirstName, dto.LastName, dto.Email);
+            context.Students.Update(student);
+            await context.SaveChangesAsync();
         }
 
-        return Ok(results);
+        return Ok();
     }   
 }
