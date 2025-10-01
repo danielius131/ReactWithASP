@@ -23,7 +23,7 @@
     </TypeScriptConfiguration>
   </ItemGroup>
   <ItemGroup>
-	  <PackageReference Include="System.Text.Json" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.0" />
     <Folder Include="src\pages\HomePage\" />
     <Folder Include="src\pages\StudentsPage\" />
   </ItemGroup>
