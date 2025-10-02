@@ -42,3 +42,21 @@ public class StudentsControllers(AppDbContext context) : ControllerBase
         return Ok(results);
     }
 }
+public class StudentsControllers(IGetStudentService getStudentService, ISaveStudentService saveStudentService) : ControllerBase
+{
+    [HttpGet]
+
+    public async Task<IActionResult> GetAll()
+    {
+        var results = await getStudentService.GetAll();
+        return Ok(results);
+    }
+
+    [HttpPut("{id:int}")]
+
+    public async Task<IActionResult> Put(int id, StudentDto dto)
+    {
+        await saveStudentService.Update(id, dto);
+        return Ok();
+    }
+}
