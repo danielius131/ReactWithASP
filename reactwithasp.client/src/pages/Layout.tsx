@@ -1,8 +1,11 @@
 ﻿import { Link, Outlet, useFetchers, useNavigation } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useRoles } from "@/data/userRoles";
 
 export function Layout() {
     const navigation = useNavigation();
     const fetchers = useFetchers();
+    const { LogoutHandler, auth } = useAuth();
     const fetcherInProgress = fetchers.some((f) =>
         ["loading", "submitting"].includes(f.state)
     );
@@ -13,11 +16,31 @@ export function Layout() {
             <nav>
                 <ul className='flex gap-x-2'>
                     <li>
-                    <Link to="/">HOME</Link>
+                    <Link to="/">Home</Link>
                     </li>
-                    <li>
-                    <Link to="/students">STUDENTS</Link>
-                    </li>
+                    {
+                        auth?.isAuthenticated ? <>
+                            <li>
+                                <Link to="/students">Students</Link>
+                            </li>
+                            {
+                                auth?.role === UserRoles.Admin ?
+                                    <li>
+                                        <link to="/admin/dashboard">Admin Panel</Link>
+                                    </li> : null
+                            }
+                            <li>
+                                <button onClick={logouthandler}>Logout</button>
+                            </li>
+                        </> : <>
+                            <li>
+                                <Link to="auth/signup">Registration</Link>
+                            </li>
+                            <li>
+                                <Link to="auth/signin">Login</Link>
+                            </li>
+                        </>
+                    }
                 </ul>
             </nav>
         </header>

@@ -34,8 +34,9 @@ export default function Students() {
         }
         <div className="text-3xl">Studentas</div>
         <div> {
-            students.map(student => <div key={student.id}><button type="button" onClick={() => editHandler(student)}>{student.firstName} {student.lastName}</button>
+            students.map(student => <div key={student.id}>
+                <button type="button" onClick={() => editHandler(student)}>{student.firstName} {student.lastName}</button>
                 {student.email}</div>)
         }</div>
-</div>
+    </div>
 }
