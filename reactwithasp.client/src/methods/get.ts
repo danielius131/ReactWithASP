@@ -1,5 +1,5 @@
-import { fechRequest, getHeaders, type ApiResponse } from "./utils";
+import { fetchRequest, getHeaders, type ApiResponse } from "./utils";
 
-export async function methodGet<T>(endpoint: string): Promise<ApiResopnes<T> | undefined> {
-    return await fechRequest<T>(endpoint, getHeaders());
+export async function methodGet<T>(endpoint: string): Promise<ApiResponse<T> | undefined> {
+    return await fetchRequest<T>(endpoint, getHeaders());
 }

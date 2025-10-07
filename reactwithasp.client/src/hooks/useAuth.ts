@@ -7,10 +7,10 @@ export function useAuth() {
     const { setAuth, auth } = useStore(useShallow((state) => ({ setAuth: state.setAuth, auth: state.auth })));
 
     const logoutHandler = async () => {
-        await postApi('authentication/Logout', {});|
+        await postApi('authentication/Logout', {});
             setAuth(undefined);
         navigate('/auth/signin');
     };
 
-    return { LogoutHandler, auth }
+    return { logoutHandler, auth }
 }

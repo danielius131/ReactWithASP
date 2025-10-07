@@ -5,7 +5,7 @@ import { useRoles } from "@/data/userRoles";
 export function Layout() {
     const navigation = useNavigation();
     const fetchers = useFetchers();
-    const { LogoutHandler, auth } = useAuth();
+    const { logoutHandler, auth } = useAuth();
     const fetcherInProgress = fetchers.some((f) =>
         ["loading", "submitting"].includes(f.state)
     );

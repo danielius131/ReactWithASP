@@ -23,6 +23,9 @@
     </TypeScriptConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="admin\DashboardPage\" />
+    <Folder Include="auth\SignInPage\" />
+    <Folder Include="auth\SignUpPage\" />
     <Folder Include="src\pages\StudentsPage\components\" />
     <PackageReference Include="System.Text.Json" Version="8.0.0" />
     <Folder Include="src\pages\HomePage\" />
