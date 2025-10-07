@@ -1,16 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReactWithAsp.Server.Models.DTOs;
-using ReactyWithAsp.Server.Data;
+using ReactyWithAsp.Server.Services;
 
 namespace ReactWithASP.Server.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]")
+[Authorize]
 
 public class StudentsController(AppDbContext context) : ControllerBase
 {
     [HttpPut ("{id:int}")]
+    [ValidateAntiForgeryToken]
 
     public async Task<IActionResult> Put(int id, StudentDto dto)
     {
@@ -28,6 +30,7 @@ public class StudentsController(AppDbContext context) : ControllerBase
 public class StudentsControllers(AppDbContext context) : ControllerBase
 {
     [HttpGet]
+    [ValidateAntiForgeryToken]
 
     public async Task<IActionResult> GetAll()
     {
@@ -45,6 +48,7 @@ public class StudentsControllers(AppDbContext context) : ControllerBase
 public class StudentsControllers(IGetStudentService getStudentService, ISaveStudentService saveStudentService) : ControllerBase
 {
     [HttpGet]
+    [ValidateAntiForgeryToken]
 
     public async Task<IActionResult> GetAll()
     {

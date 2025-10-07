@@ -1,0 +1,70 @@
+﻿using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Mvc;
+using ReactyWithASP.Server.Models.DTOs;
+using ReactyWithAsp.Server.Services;
+using ReactWithASP.Server.Services;
+using ReactWithASP.Server.Models.DTOs;
+namespace ReactyWithASP.Server.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+
+public class AuthenticationController(IAuthService authService, ILogger<AuthenticationController> logger): ControllerBase
+{
+    [HttpPost("signin")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(LoginDto model)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid payload");
+            var (statusCode, authDto) = await authService.Login(model, HttpContext);
+            if (statusCode == 0)
+                return BadRequest(authDto.Message);
+                        return Ok(authDto);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex.Message);
+            return StatusCode(StatusCode.Status500InternalServerError, ex.Message);
+        }
+    }
+    [HttpPost("signup")]
+    public async Task<IActionResult> Register(RegistrationDto model)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid payload");
+            var (status, message) = await authService.Registration(model);
+            if (status == 0) return BadRequest(message);
+            return CreatedAtAction(nameof(Register), model);
+        }
+        catch (Exception ex)
+        {
+                       logger.LogError(ex.Message);
+            return StatusCode(StatusCode.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpGet("check-session")]
+    public IActionResult CheckSession()
+        => Ok(authService.CheckSession(HttpContext));
+
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        await authService.Logout(HttpContext);
+        return Ok(new { Message = "Logged out successfully" });
+    }
+
+    [HttpGet("csrf-token")]
+    public IActionResult GetCsrfToken()
+    {
+        var antiforgery = HttpContext.RequestServices.GetRequiredService<IAntiforgery>();
+        var tokens = antiforgery.GetAndStoreTokens(HttpContext);
+        return Ok(new { token = tokens.RequestToken });
+    }
+
+}
