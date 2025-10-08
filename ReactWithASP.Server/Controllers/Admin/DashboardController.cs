@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReactWithASP.Server.Data.Consts;
-using ReactyWithAsp.Server.Data.Consts;
 
 namespace ReactyWithASP.Server.Controllers.Admin;
 

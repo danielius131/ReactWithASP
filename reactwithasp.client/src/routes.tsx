@@ -10,7 +10,7 @@ import Students from "@/pages/StudentsPage/Students";
 import Dashboard from "@/pages/admin/DasboardPage/Dashboard";
 
 export function router() {
-    return createBrowser Router([
+    return createBrowserRouter ([
         {
             path: "/",
             Component: Layout,
@@ -21,19 +21,19 @@ export function router() {
                 },
                 {
                     path: 'students',
-                    element: <Protected Route> <Students /></ProtectedRoute>
+                    element: <ProtectedRoute><Students /></ProtectedRoute>
                 },
                 }
                     path: 'auth/signup',
-                     Component: SignUp
+                    Component: SignUp
                 },
                 {
                     path: 'auth/signin',
-                        Component: SignIn
+                    Component: SignIn
                 },
                 {
                     path: 'admin/dashboard',
-                        element: <ProtectedRoute><Dashboard /></ProtectedRoute>
+                    element: <ProtectedRoute><Dashboard /></ProtectedRoute>
                 }
             ]
         }

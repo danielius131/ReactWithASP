@@ -1,6 +1,4 @@
-﻿namespace ReactWithASP.Server.Models.DTOs
+﻿namespace ReactyWithASP.Server.Models.DTOs
 {
-    public record AuthDto(bool, string? Message, string? = "", string? = "", string? = "")
-    {
-    }
+    public record AuthDto(bool IsAuthenticated, string? Message, string? UserName = "", string? Email = "", string?  Role = "");
 }

@@ -1,6 +1,7 @@
-﻿using ReactyWithAsp.Server.Models.DTOs;
+﻿using ReactWithASP.Server.Models.DTOs;
+using ReactyWithASP.Server.Models.DTOs;
 
-namespace ReactWithASP.Server.Services;
+namespace ReactyWithASP.Server.Services;
 
 public interface IAuthService
 {

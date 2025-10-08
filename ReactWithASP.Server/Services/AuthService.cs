@@ -1,9 +1,11 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using ReactyWithASP.Server.Data.Consts;
+using ReactWithASP.Server.Data.Consts;
+using ReactWithASP.Server.Models.DTOs;
 using ReactyWithASP.Server.Models.DTOs;
+using ReactyWithASP.Server.Services;
+using System.Security.Claims;
 
 namespace ReactWithASP.Server.Services;
 
@@ -12,7 +14,7 @@ public class AuthService(
     RoleManager<IdentityRole> roleManager)
     : IAuthService
 {
-    public async Task(int, string)> Registration(RegistrationDto model)
+    public async Task<(int, string)> Registration(RegistrationDto model)
     {
         var userExists = await userManager.FindByEmailAsync(model.Email ?? string.Empty);
         if (userExists != null)
@@ -22,9 +24,9 @@ public class AuthService(
         {
             Email = model.Email,
             SecurityStamp = Guid.NewGuid().ToString(),
-            UserName = model.Username
+            UserName = model.UserName
         };
-        var createUserResult = await userManager.CreateAsync(user, model.Password ?? string.Empty);
+        var createUserResult = await userManager.CreateAsync(user, model?.Password ?? string.Empty);
         if (!createUserResult.Succeeded)
         {
              var errors = string.Join("; ", createUserResult.Errors.Select(e => e.Description));
@@ -41,9 +43,9 @@ public class AuthService(
         return (1, "User created successfully!");
     }
 
-    public async Task<(int, AuthDto)> Login(LoginDto model, HttpContext)
+    public async Task<(int, AuthDto)> Login(LoginDto model, HttpContext httpContext)
     {
-        var user = await userMangaer.FindByEmailAsync(model.Email ?? string.Empty);
+        var user = await userManager.FindByEmailAsync(model.Email ?? string.Empty);
         if (user == null)
             return (0, new AuthDto(false, "Invalid email", null, null));
 
@@ -53,8 +55,8 @@ public class AuthService(
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Name, user.UserName ?? string.Empty),
-            new(ClaimTypes.Email, model?.Email ?? string.Empty),
+            new( ClaimTypes.Name, user.UserName ?? string.Empty),
+            new( ClaimTypes.Email, model?.Email ?? string.Empty),
         };
 
         var roles = await userManager.GetRolesAsync(user);
@@ -70,7 +72,7 @@ public class AuthService(
         await httpContext.SignInAsync(IdentityConstants.ApplicationScheme,
             new ClaimsPrincipal(claimsIdentity), authProperties);
 
-        return (1, new AuthDto(true, "Login successful", user.UserName, user.Email roles[0]));
+        return (1, new AuthDto(true, "Login successful", user.UserName, user.Email, roles[0]));
     }
 
     public AuthDto CheckSession(HttpContext httpContext)

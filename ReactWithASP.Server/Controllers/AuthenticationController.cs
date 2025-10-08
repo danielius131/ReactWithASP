@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc;
-using ReactyWithASP.Server.Models.DTOs;
-using ReactyWithAsp.Server.Services;
-using ReactWithASP.Server.Services;
 using ReactWithASP.Server.Models.DTOs;
+using ReactyWithASP.Server.Services;
 namespace ReactyWithASP.Server.Controllers;
 
 [Route("api/[controller]")]
@@ -27,7 +25,7 @@ public class AuthenticationController(IAuthService authService, ILogger<Authenti
         catch (Exception ex)
         {
             logger.LogError(ex.Message);
-            return StatusCode(StatusCode.Status500InternalServerError, ex.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
     [HttpPost("signup")]
@@ -44,7 +42,7 @@ public class AuthenticationController(IAuthService authService, ILogger<Authenti
         catch (Exception ex)
         {
                        logger.LogError(ex.Message);
-            return StatusCode(StatusCode.Status500InternalServerError, ex.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
 
