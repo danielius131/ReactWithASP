@@ -7,10 +7,10 @@ import { useState } from "react";
 import { ErrorBlock } from "@/pages/components/ErrorBlock";
 
 export default function SignUp() {
-    const { register, handleSubmit, watch, firnState: { errors } } = useForm<IUser & { confirm_password: string }>()
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<IUser & { confirm_password: string }>()
     const navigate = useNavigate();
     const [error, setError] = useState<string | undefined>()
-    const sotrUser = (data: IUser) => {
+    const storeUser = (data: IUser) => {
         if (error) setError(undefined)
         postApi('authentication/signup', data).then(i => {
             if (i?.error) {

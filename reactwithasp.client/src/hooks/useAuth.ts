@@ -1,4 +1,4 @@
-import { useStore, useShallow } from "@/store";
+import { useStore, useShallow } from "@/utils/store";
 import { postApi } from "@/api";
 import { useNavigate } from "react-router";
 

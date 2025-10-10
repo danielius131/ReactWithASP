@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "@/routes";
-import { useStore, useShallow } from "@/store";
+import { useStore, useShallow } from "@/utils/store";
 import { getApi } from "@/api";
 import { IAuth } from "@/interfaces/IAuth";
 import { useEffect } from "react";

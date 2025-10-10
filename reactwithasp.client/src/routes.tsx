@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
 import { ProtectedRoute } from "@/ProtectedRoute";
 import Students from "@/pages/StudentsPage/Students";
-import Dashboard from "@/pages/admin/DasboardPage/Dashboard";
+import Dashboard from "@/pages/admin/DashboardPage/Dashboard";
 
 export function router() {
-    return createBrowserRouter ([
+    return createBrowserRouter([
         {
             path: "/",
             Component: Layout,
@@ -23,7 +23,7 @@ export function router() {
                     path: 'students',
                     element: <ProtectedRoute><Students /></ProtectedRoute>
                 },
-                }
+                {
                     path: 'auth/signup',
                     Component: SignUp
                 },
@@ -36,6 +36,6 @@ export function router() {
                     element: <ProtectedRoute><Dashboard /></ProtectedRoute>
                 }
             ]
-        }
+        },
     ]);
 }

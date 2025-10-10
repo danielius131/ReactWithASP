@@ -1,6 +1,6 @@
 ﻿import { Link, Outlet, useFetchers, useNavigation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { useRoles } from "@/data/userRoles";
+import { UserRoles } from "@/data/userRoles";
 
 export function Layout() {
     const navigation = useNavigation();
@@ -26,11 +26,11 @@ export function Layout() {
                             {
                                 auth?.role === UserRoles.Admin ?
                                     <li>
-                                        <link to="/admin/dashboard">Admin Panel</Link>
+                                        <Link to="/admin/dashboard">Admin Panel</Link>
                                     </li> : null
                             }
                             <li>
-                                <button onClick={logouthandler}>Logout</button>
+                                <button onClick={logoutHandler}>Logout</button>
                             </li>
                         </> : <>
                             <li>

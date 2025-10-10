@@ -1,7 +1,7 @@
-export { methodGet as getApi } from './methods/get'
-export { method Post as postApi } from './methods/post'
-export { methodPut as putApi } from './methods/put'
-export { methodDelete as deleteApi } from './methods/delete'
+export { methodGet as getapi } from '@/methods/get'
+export { methodPost as postApi } from '@/methods/post'
+export { methodPut as putApi } from '@/methods/put'
+export { methodDelete as deleteApi } from '@/methods/delete'
 
 function getFullUrl(endpoint: string) {
     return `api/${endpoint}`

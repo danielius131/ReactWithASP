@@ -5,9 +5,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { postApi } from "@/api";
 import { useNavigate } from "react-router-dom";
-import {useStore, useShallow} from "@/store";
+import {useStore, useShallow} from "@/utils/store";
 import { IAuth } from "@/interfaces/IAuth";
-import * as React from "react";
 
 export default function SignIn() {
     const [error, setError] = useState<string | undefined>()
@@ -33,7 +32,7 @@ export default function SignIn() {
             <div>
                 <label htmlFor="email" className={formStyle.label}>Email</label>
                 <input id="email" className={formStyle.input} type="email" {...register("email", { required: 'Email is required' })} />
-                <ErrorBlock error={errors} name="email" />
+                <ErrorBlock errors={errors} name ="email" />
             </div>
             <div>
                 <label htmlFor="password" className={formStyle.label}>Password</label>

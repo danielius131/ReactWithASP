@@ -26,7 +26,7 @@ export async function fetchRequest<T>(
 
         if (!response.ok) {
             const errorText = await response.text();
-            if response.status === 400 || response.status === 403 {
+            if (response.status === 400 || response.status === 403) { 
                 alert('Problem with XSRF token or permission');
             }
             return { error: errorText } as ApiResponse<T>;
